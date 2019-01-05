@@ -2,6 +2,7 @@ package com.egorshustov.notificationstest
 
 import android.app.PendingIntent
 import android.content.Intent
+import android.graphics.BitmapFactory
 import android.graphics.Color
 import android.os.Bundle
 import android.view.View
@@ -39,10 +40,19 @@ class MainActivity : AppCompatActivity() {
         val actionIntent = PendingIntent.getBroadcast(this,
             0, broadcastIntent, PendingIntent.FLAG_UPDATE_CURRENT)
 
+        val largeIcon = BitmapFactory.decodeResource(resources, R.drawable.me)
+
         val notification = NotificationCompat.Builder(this, CHANNEL_1_ID)
             .setSmallIcon(R.drawable.ic_looks_one_black_24dp)
             .setContentTitle(title)
             .setContentText(message)
+            .setLargeIcon(largeIcon)
+            .setStyle(
+                NotificationCompat.BigTextStyle()
+                    .bigText(getString(R.string.long_dummy_text))
+                    .setBigContentTitle("Big Content Title")
+                    .setSummaryText("Summary Text")
+            )
             .setPriority(NotificationCompat.PRIORITY_HIGH)  // for APIs lower than 26
             .setVibrate(longArrayOf(100, 200, 300, 400, 500, 400, 300, 200, 400))  // for APIs lower than 26
             .setColor(Color.RED)  // for APIs lower than 26
@@ -61,6 +71,16 @@ class MainActivity : AppCompatActivity() {
             .setSmallIcon(R.drawable.ic_looks_two_black_24dp)
             .setContentTitle(editTextTitle.text)
             .setContentText(editTextMessage.text)
+            .setStyle(NotificationCompat.InboxStyle()
+                .addLine("This is line 1")
+                .addLine("This is line 2")
+                .addLine("This is line 3")
+                .addLine("This is line 4")
+                .addLine("This is line 5")
+                .addLine("This is line 6")
+                .addLine("This is line 7")
+                .setBigContentTitle("Big Content Title")
+                .setSummaryText("Summary Text"))
             .setPriority(NotificationCompat.PRIORITY_LOW) // for APIs lower than 26
             .build()
 
